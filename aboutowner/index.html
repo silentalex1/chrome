@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Owner | Chrome Extensions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0a192f;
+            color: #ccd6f6;
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100, 255, 218, 0.03) 0%, transparent 40%),
+                             radial-gradient(circle at 90% 80%, rgba(100, 255, 218, 0.05) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 0.8rem;
+        }
+        
+        nav ul li a {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .about-header {
+            background: linear-gradient(135deg, #112240, #0a192f);
+            color: #64ffda;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+        }
+        
+        .about-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #64ffda, #8aa2f8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            position: relative;
+        }
+        
+        .about-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #a8b2d1;
+        }
+        
+        .about-content {
+            padding: 5rem 0;
+            text-align: left;
+            position: relative;
+            background: rgba(17, 34, 64, 0.3);
+        }
+        
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: #64ffda;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+        
+        .about-box {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(17, 34, 64, 0.8);
+            padding: 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .about-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .about-box h2 {
+            color: #64ffda;
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .about-box h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #64ffda, transparent);
+            border-radius: 3px;
+        }
+        
+        .about-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .about-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: #a8b2d1;
+            line-height: 1.9;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8b2d1;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(10, 25, 47, 0.95);
+            color: #a8b2d1;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        footer span {
+            color: #64ffda;
+            font-weight: 500;
+        }
+        
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        }
+        
+        .icon-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .icon-item {
+            text-align: center;
+            width: 150px;
+        }
+        
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .icon-circle svg {
+            width: 40px;
+            height: 40px;
+            fill: #64ffda;
+        }
+        
+        .icon-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .icon-item p {
+            font-size: 0.9rem;
+            color: #a8b2d1;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-btn {
+            width: 180px;
+            padding: 12px 20px;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            fill: #64ffda;
+        }
+        
+        .discord-btn {
+            background: rgba(114, 137, 218, 0.2);
+            border: 1px solid rgba(114, 137, 218, 0.4);
+        }
+        
+        .discord-btn svg {
+            fill: #7289da;
+        }
+        
+        .contact-btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .discord-btn:hover {
+            background: rgba(114, 137, 218, 0.3);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .skill-item {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 8px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(100, 255, 218, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-item h3 svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            fill: #64ffda;
+        }
+        
+        .skill-item p {
+            font-size: 1rem;
+            color: #a8b2d1;
+            margin-bottom: 0;
+        }
+        
+        .discord-info {
+            background: rgba(114, 137, 218, 0.1);
+            border: 1px solid rgba(114, 137, 218, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .discord-info h3 {
+            color: #7289da;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            background: rgba(17, 34, 64, 0.6);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefit-icon {
+            background: rgba(114, 137, 218, 0.2);
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .benefit-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #7289da;
+        }
+        
+        .benefit-text {
+            font-size: 1rem;
+            color: #a8b2d1;
+        }
+        
+        /* Notification Styling */
+        .notification {
+            position: fixed;
+            top: 70px; /* Below navbar */
+            right: 20px;
+            background: rgba(100, 255, 218, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            color: #64ffda;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth bezier curve */
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.fade-out {
+            opacity: 0;
+            transform: translateX(120%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .notification-icon {
+            margin-right: 12px;
+            background: rgba(100, 255, 218, 0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .notification-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #64ffda;
+        }
+        
+        .notification-content {
+            flex-grow: 1;
+        }
+        
+        .notification-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(100, 255, 218, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            width: 0;
+            height: 100%;
+            background: #64ffda;
+            border-radius: 2px;
+            animation: load 3s linear forwards;
+        }
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Extensions</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tos">ToS</a></li>
+                <li><a href="/aboutsite">About Site</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="notification" class="notification">
+        <div class="notification-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+        </div>
+        <div class="notification-content">
+            <div class="notification-text">Discord invite link copied onto your clipboard.</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+    
+    <header class="about-header">
+        <div class="container">
+            <h1>About Me</h1>
+            <p>The developer behind these Chrome extensions</p>
+        </div>
+    </header>
+    
+    <section class="about-content">
+        <div class="floating-stars" id="stars"></div>
+        <div class="container">
+            <div class="about-box">
+                <div class="about-section">
+                    <h2>Who I Am</h2>
+                    <p>Hey there! I'm a 16 year old high school student who loves building helpful browser extensions and coding. I'm always working to improve my skills as a developer to create tools that make using the web better for everyone, I also know c#, c++, lua, js, and python.</p>
+                    
+                    <p>I balance my school work with several coding projects at once. While I'm still learning, I put in the effort to make sure everything I create works well and solves real problems.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>My Work Style</h2>
+                    <p>What you can expect from my projects:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Finished products I don't leave projects half done</li>
+                        <li>Attention to detail and good tracking of all parts of a project</li>
+                        <li>Regular updates and improvements based on user feedback</li>
+                        <li>Strong focus on making extensions that are easy to use</li>
+                        <li>Clear communication about what my extensions can do for you</li>
+                    </ul>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Current Projects</h2>
+                    <p>I'm working on several Chrome extensions designed to improve your browsing experience. Each one is built with users in mind and aims to solve common problems that we all face online.</p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                                </svg>
+                                Development
+                            </h3>
+                            <p>Building useful extensions that work well</p>
+                        </div>
+                        <div class="skill-item">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                </svg>
+                                Testing
+                            </h3>
+                            <p>Making sure everything works as expected</p>
+                        </div>
+                        <div class="skill-item">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 2.02c-5.51 0-9.98 4.47-9.98 9.98s4.47 9.98 9.98 9.98 9.98-4.47 9.98-9.98S17.51 2.02 12 2.02zM11.48 20v-6.26H8L13 4v6.26h3.35L11.48 20z"/>
+                                </svg>
+                                Quick Updates
+                            </h3>
+                            <p>Regular improvements based on your feedback</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Connect With Me</h2>
+                    <p>Have questions about my extensions? Want to share ideas or report bugs? I'm always happy to hear from users.</p>
+                    
+                    <div class="buttons-container">
+                        <a href="mailto:asdwwas233@gmail.com" class="contact-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            Email Me
+                        </a>
+                        <a href="#" id="discord-btn" class="contact-btn discord-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.39-.444.883-.608 1.283a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.283.077.077 0 0 0-.079-.036c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104-.645-.242-1.259-.54-1.85-.893a.076.076 0 0 1-.008-.125 10.77 10.77 0 0 0 .372-.291.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.076.076 0 0 1-.006.127 12.299 12.299 0 0 1-1.853.892.077.077 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+                            </svg>
+                            Join Discord
+                        </a>
+                    </div>
+                    
+                    <div class="discord-info">
+                        <h3>Why Join Our Discord Server?</h3>
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm0-10h2v8h-2z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    Get early updates about new Chrome extensions
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    See sneak peeks of extension designs before anyone else
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    Suggest new features and help shape future updates
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    Join a community of other extension users
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    Get help and tips on using the extensions
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    Be the first to try beta versions of new extensions
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefit-text">
+                                    To hangout/make friends or to have a chat with our staff or including the owner
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 <span>Useful Chrome Extensions</span>. Made by Smart Script Studios.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 50;
+        
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            const size = Math.random() * 3 + 1;
+            
+            const delay = Math.random() * 4;
+            
+            star.style.left = `${posX}%`;
+            star.style.top = `${posY}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+
+        // Notification functionality
+        const discordBtn = document.getElementById('discord-btn');
+        const notification = document.getElementById('notification');
+        
+        discordBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            
+            const discordLink = "https://discord.gg/z2TcBXvGFe";
+            navigator.clipboard.writeText(discordLink).then(() => {
+                
+                notification.classList.remove('fade-out');
+                notification.classList.add('show');
+                
+                
+                const progress = notification.querySelector('.loading-progress');
+                progress.style.animation = 'none';
+                progress.offsetHeight; 
+                progress.style.animation = 'load 3s linear forwards';
+                
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    notification.classList.add('fade-out');
+                }, 3000); 
+            }).catch(err => {
+                console.error('Failed to copy link: ', err);
+            });
+        });
+    </script>
+</body>
+</html>
