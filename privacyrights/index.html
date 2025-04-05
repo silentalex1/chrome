@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Rights | Chrome Extensions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0a192f;
+            color: #ccd6f6;
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100, 255, 218, 0.03) 0%, transparent 40%),
+                             radial-gradient(circle at 90% 80%, rgba(100, 255, 218, 0.05) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 0.8rem;
+        }
+        
+        nav ul li a {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .hero-header {
+            background: linear-gradient(135deg, #112240, #0a192f);
+            color: #64ffda;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #64ffda, #8aa2f8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            position: relative;
+        }
+        
+        .hero-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #a8b2d1;
+        }
+        
+        .content-section {
+            padding: 5rem 0;
+            position: relative;
+            background: rgba(17, 34, 64, 0.3);
+        }
+        
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: #64ffda;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+        
+        .content-box {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(17, 34, 64, 0.8);
+            padding: 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .content-box h2 {
+            color: #64ffda;
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .content-box h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #64ffda, transparent);
+            border-radius: 3px;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .content-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: #a8b2d1;
+            line-height: 1.9;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8b2d1;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        .media-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .media-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+        }
+        
+        .screenshot-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .screenshot-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .screenshot-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-box:hover img {
+            transform: scale(1.02);
+        }
+        
+        .video-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .video-box iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        
+        .media-caption {
+            margin-top: 1rem;
+            text-align: center;
+            color: #a8b2d1;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .feature-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-item {
+            text-align: center;
+            width: 200px;
+            background: rgba(17, 34, 64, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #64ffda;
+        }
+        
+        .feature-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #a8b2d1;
+        }
+        
+        .cta-box {
+            text-align: center;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cta-box h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .cta-btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(100, 255, 218, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(10, 25, 47, 0.95);
+            color: #a8b2d1;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        footer span {
+            color: #64ffda;
+            font-weight: 500;
+        }
+        
+        .placeholder-box {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px dashed rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64ffda;
+            width: 100%;
+            aspect-ratio: 16/9;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .media-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .screenshot-container,
+            .video-container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">PrivacyRights</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tos">ToS</a></li>
+                <li><a href="/aboutsite">About Site</a></li>
+                <li><a href="/aboutowner">About Owner</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header class="hero-header">
+        <div class="container">
+            <h1>PrivacyRights</h1>
+            <p>A Chrome extension that protects your privacy and makes browsing better</p>
+        </div>
+    </header>
+    
+    <section class="content-section">
+        <div class="floating-stars" id="stars"></div>
+        <div class="container">
+            <div class="content-box">
+                <div class="section">
+                    <h2>What is PrivacyRights?</h2>
+                    <p>PrivacyRights is a Chrome extension that helps keep your browser safe and fast. It works as a Chrome management tool that looks out for your online privacy.</p>
+                    
+                    <p>This extension can find bad Chrome extensions that might harm your computer or slow down your browser. It also has a built-in adblocker that gets rid of annoying ads when you browse the web.</p>
+                </div>
+                
+                <div class="media-section">
+                    <h2>See PrivacyRights in Action</h2>
+                    <div class="media-container">
+                        <div class="screenshot-container">
+                            <div class="screenshot-box">
+                                <img src="https://github.com/silentalex1/script-gate-/blob/main/image%20(1).png" alt="PrivacyRights Screenshot">
+                            </div>
+                            <p class="media-caption">PrivacyRights finding bad extensions</p>
+                        </div>
+                        
+                        <div class="video-container">
+                            <div class="placeholder-box">
+                                Video Coming Soon
+                            </div>
+                            <p class="media-caption">Watch how PrivacyRights works</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Main Features</h2>
+                    <ul class="feature-list">
+                        <li>Finds and warns you about bad Chrome extensions</li>
+                        <li>Blocks annoying ads on websites</li>
+                        <li>Makes your browser faster</li>
+                        <li>Watches for security problems</li>
+                        <li>Easy to use with simple controls</li>
+                        <li>Gets updates to stay safe from new threats</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                            </svg>
+                        </div>
+                        <h3>Extension Checker</h3>
+                        <p>Finds bad browser extensions</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/>
+                            </svg>
+                        </div>
+                        <h3>Ad Blocker</h3>
+                        <p>Removes ads and popups</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                            </svg>
+                        </div>
+                        <h3>Easy Controls</h3>
+                        <p>Simple ways to manage extensions</p>
+                    </div>
+                </div>
+                
+                <div class="cta-box">
+                    <h3>Want to Protect Your Browser?</h3>
+                    <p>PrivacyRights will be ready soon. Check back for our launch!</p>
+                    <a href="#" class="cta-btn">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 <span>PrivacyRights</span>. Made by Smart Script Studios.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 50;
+        
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            const size = Math.random() * 3 + 1;
+            
+            const delay = Math.random() * 4;
+            
+            star.style.left = `${posX}%`;
+            star.style.top = `${posY}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
