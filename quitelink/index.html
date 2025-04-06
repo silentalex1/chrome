@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuietLink | Link Tool</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0a192f;
+            color: #ccd6f6;
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100, 255, 218, 0.03) 0%, transparent 40%),
+                             radial-gradient(circle at 90% 80%, rgba(100, 255, 218, 0.05) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 0.8rem;
+        }
+        
+        nav ul li a {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .hero-header {
+            background: linear-gradient(135deg, #112240, #0a192f);
+            color: #64ffda;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #64ffda, #8aa2f8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            position: relative;
+        }
+        
+        .hero-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #a8b2d1;
+        }
+        
+        .content-section {
+            padding: 5rem 0;
+            position: relative;
+            background: rgba(17, 34, 64, 0.3);
+        }
+        
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: #64ffda;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+        
+        .content-box {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(17, 34, 64, 0.8);
+            padding: 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .content-box h2 {
+            color: #64ffda;
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .content-box h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #64ffda, transparent);
+            border-radius: 3px;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .content-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: #a8b2d1;
+            line-height: 1.9;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8b2d1;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        .media-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .media-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+        }
+        
+        .screenshot-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .screenshot-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .screenshot-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-box:hover img {
+            transform: scale(1.02);
+        }
+        
+        .video-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .video-box iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        
+        .media-caption {
+            margin-top: 1rem;
+            text-align: center;
+            color: #a8b2d1;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .feature-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-item {
+            text-align: center;
+            width: 200px;
+            background: rgba(17, 34, 64, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #64ffda;
+        }
+        
+        .feature-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #a8b2d1;
+        }
+        
+        .cta-box {
+            text-align: center;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cta-box h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .cta-btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(100, 255, 218, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(10, 25, 47, 0.95);
+            color: #a8b2d1;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        footer span {
+            color: #64ffda;
+            font-weight: 500;
+        }
+        
+        .placeholder-box {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px dashed rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64ffda;
+            width: 100%;
+            aspect-ratio: 16/9;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .media-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .screenshot-container,
+            .video-container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">QuietLink</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tos">Tos</a></li>
+                <li><a href="/aboutsite">About Site</a></li>
+                <li><a href="/aboutowner">About Owner</a></li>
+                <li><a href="/crxmethod">CRX Method</a></li>
+                <li><a href="/showcase">Showcase</a></li>
+                <li><a href="/linkleap">Link Leap</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header class="hero-header">
+        <div class="container">
+            <h1>QuietLink</h1>
+            <p>Keep all your links in one place while browsing freely</p>
+        </div>
+    </header>
+    
+    <section class="content-section">
+        <div class="floating-stars" id="stars"></div>
+        <div class="container">
+            <div class="content-box">
+                <div class="section">
+                    <h2>What is QuietLink?</h2>
+                    <p>QuietLink is a simple link keeper tool. It helps you save and sort all your web links in one clean spot.</p>
+                    
+                    <p>But there's more - QuietLink also lets you visit any site by going around blocks. It looks just like a normal link tool on your screen, but helps you get to any site you want.</p>
+                </div>
+                
+                <div class="media-section">
+                    <h2>See QuietLink in Action</h2>
+                    <div class="media-container">
+                        <div class="screenshot-container">
+                            <div class="placeholder-box">
+                                QuietLink Link Manager
+                            </div>
+                            <p class="media-caption">The simple link keeper screen</p>
+                        </div>
+                        
+                        <div class="video-container">
+                            <div class="placeholder-box">
+                                How-To Video Coming Soon
+                            </div>
+                            <p class="media-caption">See how QuietLink helps you browse freely</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Key Features</h2>
+                    <ul class="feature-list">
+                        <li>Clean link keeper that looks like a work tool</li>
+                        <li>Visit any site by going around blocks</li>
+                        <li>Sort links into groups for easy finding</li>
+                        <li>Quick switch between work view and free browse mode</li>
+                        <li>Works right away - no extra setup</li>
+                        <li>Looks like a normal app in your task list</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3>Clean Look</h3>
+                        <p>Just like a work tool</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm3 7H9v-2h6v2z"/>
+                            </svg>
+                        </div>
+                        <h3>Free Browsing</h3>
+                        <p>Get past blocks easily</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <h3>Easy Start</h3>
+                        <p>No setup needed</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>How It Works</h2>
+                    <p>Using QuietLink is easy:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Put QuietLink on your computer</li>
+                        <li>Open it to see your link keeper</li>
+                        <li>Save and sort your links like normal</li>
+                        <li>In the background, it lets you browse any site</li>
+                        <li>Visit sites without seeing block messages</li>
+                        <li>Switch to "Work View" if someone walks by</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h2>Perfect For</h2>
+                    <ul class="feature-list">
+                        <li>Office workers with strict web rules</li>
+                        <li>Students on school networks</li>
+                        <li>Travelers in places with web blocks</li>
+                        <li>Anyone who wants to reach all websites</li>
+                        <li>People who like to keep their web use private</li>
+                    </ul>
+                </div>
+                
+                <div class="cta-box">
+                    <h3>Ready to Browse Freely?</h3>
+                    <p>QuietLink will be ready soon for Windows and Mac!</p>
+                    <a href="#" class="cta-btn">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 <span>QuietLink</span>. Free browsing made easy.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 50;
+        
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            const size = Math.random() * 3 + 1;
+            
+            const delay = Math.random() * 4;
+            
+            star.style.left = `${posX}%`;
+            star.style.top = `${posY}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
