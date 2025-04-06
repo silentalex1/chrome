@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Construction | Chrome Extensions</title>
+    <title>ShadowPulse | Free VPN</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -91,7 +91,7 @@
             border: 1px solid rgba(100, 255, 218, 0.3);
         }
         
-        .progress-header {
+        .hero-header {
             background: linear-gradient(135deg, #112240, #0a192f);
             color: #64ffda;
             padding: 6rem 0;
@@ -100,7 +100,7 @@
             overflow: hidden;
         }
         
-        .progress-header::before {
+        .hero-header::before {
             content: "";
             position: absolute;
             top: 0;
@@ -112,7 +112,7 @@
                 radial-gradient(circle at 80% 70%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
         }
         
-        .progress-header h1 {
+        .hero-header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
@@ -123,23 +123,18 @@
             position: relative;
         }
         
-        .progress-header p {
+        .hero-header p {
             font-size: 1.3rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             color: #a8b2d1;
         }
         
-        .progress-content {
+        .content-section {
             padding: 5rem 0;
-            text-align: center;
             position: relative;
             background: rgba(17, 34, 64, 0.3);
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .floating-stars {
@@ -165,8 +160,8 @@
             50% { opacity: 0.5; }
         }
         
-        .progress-box {
-            max-width: 700px;
+        .content-box {
+            max-width: 900px;
             margin: auto;
             background: rgba(17, 34, 64, 0.8);
             padding: 3.5rem;
@@ -179,12 +174,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .progress-box:hover {
+        .content-box:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 255, 218, 0.1);
         }
         
-        .progress-box h2 {
+        .content-box h2 {
             color: #64ffda;
             font-size: 2rem;
             margin-bottom: 1.8rem;
@@ -193,7 +188,7 @@
             padding-bottom: 15px;
         }
         
-        .progress-box h2::after {
+        .content-box h2::after {
             content: "";
             position: absolute;
             bottom: 0;
@@ -205,49 +200,193 @@
             border-radius: 3px;
         }
         
-        .progress-box p {
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .content-box p {
             font-size: 1.1rem;
             margin-bottom: 1.2rem;
             color: #a8b2d1;
             line-height: 1.9;
         }
         
-        .loader {
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8b2d1;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        .media-section {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .media-container {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            margin: 2rem 0;
+            gap: 2rem;
+            width: 100%;
         }
         
-        .dot {
-            width: 15px;
-            height: 15px;
-            margin: 0 8px;
-            background: #64ffda;
+        .screenshot-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .screenshot-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .screenshot-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-box:hover img {
+            transform: scale(1.02);
+        }
+        
+        .video-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .video-box iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        
+        .media-caption {
+            margin-top: 1rem;
+            text-align: center;
+            color: #a8b2d1;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .feature-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-item {
+            text-align: center;
+            width: 200px;
+            background: rgba(17, 34, 64, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            animation: bounce 1.5s infinite ease-in-out;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
         }
         
-        .dot:nth-child(1) {
-            animation-delay: 0s;
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #64ffda;
         }
         
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .feature-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
         
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #a8b2d1;
         }
         
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(-15px);
-                opacity: 1;
-            }
+        .cta-box {
+            text-align: center;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cta-box h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .cta-btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(100, 255, 218, 0.1);
         }
         
         footer {
@@ -268,10 +407,39 @@
             font-weight: 500;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
+        .placeholder-box {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px dashed rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64ffda;
+            width: 100%;
+            aspect-ratio: 16/9;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .media-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .screenshot-container,
+            .video-container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-box {
+                padding: 2rem;
             }
         }
     </style>
@@ -279,46 +447,126 @@
 <body>
     <nav>
         <div class="container">
-            <div class="logo">Extensions</div>
+            <div class="logo">ShadowPulse</div>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/tos">ToS</a></li>
+                <li><a href="/tos">Tos</a></li>
                 <li><a href="/aboutsite">About Site</a></li>
                 <li><a href="/aboutowner">About Owner</a></li>
                 <li><a href="/crxmethod">CRX Method</a></li>
-                <li><a href="/showcases">Showcase</a></li>
+                <li><a href="/showcase">Showcase</a></li>
+                <li><a href="/linkleap">Link Leap</a></li>
             </ul>
         </div>
     </nav>
     
-    <header class="progress-header">
+    <header class="hero-header">
         <div class="container">
-            <h1>Under Construction</h1>
-            <p>This page is being made in progress, please wait</p>
+            <h1>ShadowPulse</h1>
+            <p>Free VPN for everyone - All countries and states at no cost</p>
         </div>
     </header>
     
-    <section class="progress-content">
+    <section class="content-section">
         <div class="floating-stars" id="stars"></div>
         <div class="container">
-            <div class="progress-box">
-                <h2>Being made in progress</h2>
-                <p>We're working hard to bring you amazing content soon. This page is currently under development.</p>
-                
-                <div class="loader">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+            <div class="content-box">
+                <div class="section">
+                    <h2>What is ShadowPulse?</h2>
+                    <p>ShadowPulse is a free VPN that lets you browse the web safely. You can connect to servers in all countries and states without paying anything.</p>
+                    
+                    <p>To keep ShadowPulse free for everyone, you'll see a short ad every 3 minutes while using the VPN. That's it - no hidden fees, no paid plans, just a simple VPN for everyone.</p>
                 </div>
                 
-                <p>Thank you for your patience. Please check back later!</p>
+                <div class="media-section">
+                    <h2>See ShadowPulse in Action</h2>
+                    <div class="media-container">
+                        <div class="screenshot-container">
+                            <div class="placeholder-box">
+                                ShadowPulse Screenshot
+                            </div>
+                            <p class="media-caption">ShadowPulse showing country selection</p>
+                        </div>
+                        
+                        <div class="video-container">
+                            <div class="placeholder-box">
+                                Demo Video Coming Soon
+                            </div>
+                            <p class="media-caption">See how easy it is to use ShadowPulse</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Key Features</h2>
+                    <ul class="feature-list">
+                        <li>100% Free - no paid plans or upgrades needed</li>
+                        <li>Servers in all countries and states</li>
+                        <li>Fast connection speeds</li>
+                        <li>Works on Chrome browser</li>
+                        <li>Just one ad every 3 minutes of use</li>
+                        <li>Hide your real location</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                            </svg>
+                        </div>
+                        <h3>Stay Safe</h3>
+                        <p>Browse without sharing your info</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
+                            </svg>
+                        </div>
+                        <h3>All Countries</h3>
+                        <p>Connect to servers worldwide</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                            </svg>
+                        </div>
+                        <h3>Easy to Use</h3>
+                        <p>One click to connect</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>How It Works</h2>
+                    <p>Using ShadowPulse is simple:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Install the Chrome extension</li>
+                        <li>Click on ShadowPulse icon</li>
+                        <li>Pick a country or state</li>
+                        <li>Click "Connect" and you're done!</li>
+                        <li>Every 3 minutes, you'll see a short ad</li>
+                        <li>Disconnect anytime with one click</li>
+                    </ul>
+                </div>
+                
+                <div class="cta-box">
+                    <h3>Ready to Browse Freely?</h3>
+                    <p>ShadowPulse will be available soon in the Chrome Web Store!</p>
+                    <a href="#" class="cta-btn">Coming Soon</a>
+                </div>
             </div>
         </div>
     </section>
     
     <footer>
         <div class="container">
-            <p>© 2025 <span>Useful Chrome Extensions</span>. Made by Smart Script Studios.</p>
+            <p>© 2025 <span>ShadowPulse</span>. Made by Smart Script Studios.</p>
         </div>
     </footer>
     
