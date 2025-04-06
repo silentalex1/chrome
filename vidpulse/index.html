@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Construction | Chrome Extensions</title>
+    <title>VidPulse | Chrome Extensions</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -91,7 +91,7 @@
             border: 1px solid rgba(100, 255, 218, 0.3);
         }
         
-        .progress-header {
+        .hero-header {
             background: linear-gradient(135deg, #112240, #0a192f);
             color: #64ffda;
             padding: 6rem 0;
@@ -100,7 +100,7 @@
             overflow: hidden;
         }
         
-        .progress-header::before {
+        .hero-header::before {
             content: "";
             position: absolute;
             top: 0;
@@ -112,7 +112,7 @@
                 radial-gradient(circle at 80% 70%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
         }
         
-        .progress-header h1 {
+        .hero-header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
@@ -123,23 +123,18 @@
             position: relative;
         }
         
-        .progress-header p {
+        .hero-header p {
             font-size: 1.3rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             color: #a8b2d1;
         }
         
-        .progress-content {
+        .content-section {
             padding: 5rem 0;
-            text-align: center;
             position: relative;
             background: rgba(17, 34, 64, 0.3);
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .floating-stars {
@@ -165,8 +160,8 @@
             50% { opacity: 0.5; }
         }
         
-        .progress-box {
-            max-width: 700px;
+        .content-box {
+            max-width: 900px;
             margin: auto;
             background: rgba(17, 34, 64, 0.8);
             padding: 3.5rem;
@@ -179,12 +174,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .progress-box:hover {
+        .content-box:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 255, 218, 0.1);
         }
         
-        .progress-box h2 {
+        .content-box h2 {
             color: #64ffda;
             font-size: 2rem;
             margin-bottom: 1.8rem;
@@ -193,7 +188,7 @@
             padding-bottom: 15px;
         }
         
-        .progress-box h2::after {
+        .content-box h2::after {
             content: "";
             position: absolute;
             bottom: 0;
@@ -205,49 +200,193 @@
             border-radius: 3px;
         }
         
-        .progress-box p {
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .content-box p {
             font-size: 1.1rem;
             margin-bottom: 1.2rem;
             color: #a8b2d1;
             line-height: 1.9;
         }
         
-        .loader {
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8b2d1;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        .media-section {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .media-container {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            margin: 2rem 0;
+            gap: 2rem;
+            width: 100%;
         }
         
-        .dot {
-            width: 15px;
-            height: 15px;
-            margin: 0 8px;
-            background: #64ffda;
+        .screenshot-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .screenshot-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .screenshot-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-box:hover img {
+            transform: scale(1.02);
+        }
+        
+        .video-box {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .video-box iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        
+        .media-caption {
+            margin-top: 1rem;
+            text-align: center;
+            color: #a8b2d1;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .feature-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-item {
+            text-align: center;
+            width: 200px;
+            background: rgba(17, 34, 64, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            animation: bounce 1.5s infinite ease-in-out;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
         }
         
-        .dot:nth-child(1) {
-            animation-delay: 0s;
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #64ffda;
         }
         
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .feature-item h3 {
+            color: #64ffda;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
         
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #a8b2d1;
         }
         
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(-15px);
-                opacity: 1;
-            }
+        .cta-box {
+            text-align: center;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cta-box h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .cta-btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(100, 255, 218, 0.1);
         }
         
         footer {
@@ -268,10 +407,39 @@
             font-weight: 500;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
+        .placeholder-box {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px dashed rgba(100, 255, 218, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64ffda;
+            width: 100%;
+            aspect-ratio: 16/9;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .media-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .screenshot-container,
+            .video-container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-box {
+                padding: 2rem;
             }
         }
     </style>
@@ -279,46 +447,114 @@
 <body>
     <nav>
         <div class="container">
-            <div class="logo">Extensions</div>
+            <div class="logo">VidPulse</div>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/tos">ToS</a></li>
+                <li><a href="/tos">Tos</a></li>
                 <li><a href="/aboutsite">About Site</a></li>
                 <li><a href="/aboutowner">About Owner</a></li>
                 <li><a href="/crxmethod">CRX Method</a></li>
-                <li><a href="/showcases">Showcase</a></li>
+                <li><a href="/showcase">Showcase</a></li>
+                <li><a href="/linkleap">Link Leap</a></li>
             </ul>
         </div>
     </nav>
     
-    <header class="progress-header">
+    <header class="hero-header">
         <div class="container">
-            <h1>Under Construction</h1>
-            <p>This page is being made in progress, please wait</p>
+            <h1>VidPulse</h1>
+            <p>Enhance your YouTube experience with advanced adblocking, custom themes, and timestamp features</p>
         </div>
     </header>
     
-    <section class="progress-content">
+    <section class="content-section">
         <div class="floating-stars" id="stars"></div>
         <div class="container">
-            <div class="progress-box">
-                <h2>Being made in progress</h2>
-                <p>We're working hard to bring you amazing content soon. This page is currently under development.</p>
-                
-                <div class="loader">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+            <div class="content-box">
+                <div class="section">
+                    <h2>What is VidPulse?</h2>
+                    <p>VidPulse is a sophisticated Chrome extension designed to transform your YouTube experience. It combines powerful adblocking capabilities with unique features specifically tailored for YouTube users who want more control and customization.</p>
+                    
+                    <p>With advanced timestamp management, you can easily mark and return to your favorite moments in any video. VidPulse also offers a variety of YouTube theme designs that let you personalize your viewing experience and reduce eye strain during those long viewing sessions.</p>
                 </div>
                 
-                <p>Thank you for your patience. Please check back later!</p>
+                <div class="media-section">
+                    <h2>See VidPulse in Action</h2>
+                    <div class="media-container">
+                        <div class="screenshot-container">
+                            <div class="screenshot-box">
+                                <img src="/api/placeholder/400/320" alt="VidPulse Screenshot">
+                            </div>
+                            <p class="media-caption">VidPulse interface showing theme customization</p>
+                        </div>
+                        
+                        <div class="video-container">
+                            <div class="placeholder-box">
+                                Demo Video Coming Soon
+                            </div>
+                            <p class="media-caption">Watch how VidPulse enhances your YouTube experience</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Key Features</h2>
+                    <ul class="feature-list">
+                        <li>Advanced adblocking that eliminates all YouTube ads</li>
+                        <li>Timestamp management - save and organize your favorite video moments</li>
+                        <li>Custom YouTube themes with dark mode, high contrast, and more</li>
+                        <li>Performance optimization for smoother video playback</li>
+                        <li>User-friendly controls that integrate seamlessly with YouTube</li>
+                        <li>Regular updates to maintain compatibility with YouTube changes</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/>
+                            </svg>
+                        </div>
+                        <h3>Ad Blocker</h3>
+                        <p>Removes all YouTube ads for uninterrupted viewing</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                        </div>
+                        <h3>Timestamps</h3>
+                        <p>Save and organize your favorite video moments</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
+                                <path d="M12 17.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                            </svg>
+                        </div>
+                        <h3>Custom Themes</h3>
+                        <p>Personalize YouTube with various theme options</p>
+                    </div>
+                </div>
+                
+                <div class="cta-box">
+                    <h3>Ready to Enhance Your YouTube Experience?</h3>
+                    <p>VidPulse will be available soon. Stay tuned for our official launch!</p>
+                    <a href="#" class="cta-btn">Coming Soon</a>
+                </div>
             </div>
         </div>
     </section>
     
     <footer>
         <div class="container">
-            <p>© 2025 <span>Useful Chrome Extensions</span>. Made by Smart Script Studios.</p>
+            <p>© 2025 <span>VidPulse</span>. Made by Smart Script Studios.</p>
         </div>
     </footer>
     
