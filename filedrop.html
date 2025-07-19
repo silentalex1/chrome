@@ -171,59 +171,12 @@
     const modalClose = document.getElementById('modalClose');
 
     function checkAuth() {
-      const sessionId = localStorage.getItem('currentSession');
-      if (!sessionId) {
+      const username = userManager.getCurrentUser();
+      if (!username) {
         window.location.href = '/';
         return;
       }
-      
-      const sessions = JSON.parse(localStorage.getItem('sessions') || '{}');
-      const session = sessions[sessionId];
-      if (!session) {
-        localStorage.removeItem('currentSession');
-        window.location.href = '/';
-        return;
-      }
-      
-      currentUser = session.username;
-    }
-
-    function showNotification(message, type = 'info') {
-      notification.textContent = message;
-      notification.className = `notification ${type}`;
-      notification.style.display = 'block';
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 4000);
-    }
-
-    function formatFileSize(bytes) {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
-    function formatDate(date) {
-      return new Intl.DateTimeFormat('en-US', {
-        month: 'numeric',
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      }).format(new Date(date));
-    }
-
-    function generateRandomId() {
-      return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    }
-
-    function generatePublishLink() {
-      const randomId = generateRandomId();
-      return `xtendify.wtf/xtendify_${randomId}`;
+      fileManager.currentUser = username;
     }
 
     function createFileItem(file) {
@@ -238,8 +191,8 @@
         <div class="file-info">
           <div class="file-name">${file.name}</div>
           <div class="file-meta">
-            <span>${formatDate(file.uploaded || Date.now())}</span>
-            <span>${formatFileSize(file.size || 0)}</span>
+            <span>${fileManager.formatDate(file.uploaded || Date.now())}</span>
+            <span>${fileManager.formatFileSize(file.size || 0)}</span>
           </div>
         </div>
         <div class="file-actions">
@@ -293,27 +246,12 @@
     }
 
     function loadFiles() {
-      const users = JSON.parse(localStorage.getItem('users') || '{}');
-      const user = users[currentUser];
-      if (user && user.files) {
-        currentFiles = user.files;
-      } else {
-        currentFiles = [];
-      }
-      renderFiles(currentFiles);
-    }
-
-    function saveFiles() {
-      const users = JSON.parse(localStorage.getItem('users') || '{}');
-      if (!users[currentUser]) {
-        users[currentUser] = { files: [] };
-      }
-      users[currentUser].files = currentFiles;
-      localStorage.setItem('users', JSON.stringify(users));
+      const files = fileManager.loadFiles();
+      renderFiles(files);
     }
 
     function uploadFile(file) {
-      const fileId = generateRandomId();
+      const fileId = fileManager.generateRandomId();
       
       uploadProgress.style.display = 'block';
       dropZone.classList.add('uploading');
@@ -345,16 +283,15 @@
                 data: e.target.result
               };
               
-              currentFiles.push(fileData);
-              saveFiles();
+              fileManager.addFile(fileData);
               
               uploadProgress.style.display = 'none';
               dropZone.classList.remove('uploading');
               progressFill.style.width = '0%';
               verifyBtn.remove();
               
-              showNotification('File uploaded successfully!', 'success');
-              renderFiles(currentFiles);
+              notificationManager.show('File uploaded successfully!', 'success');
+              loadFiles();
             };
             reader.readAsDataURL(file);
           };
@@ -374,9 +311,9 @@
     function showPropertiesModal(file) {
       document.getElementById('modalFileName').textContent = file.name;
       document.getElementById('modalFileType').textContent = 'file';
-      document.getElementById('modalFileCreated').textContent = formatDate(file.uploaded || Date.now());
+      document.getElementById('modalFileCreated').textContent = fileManager.formatDate(file.uploaded || Date.now());
       document.getElementById('modalFileId').textContent = file.id;
-      document.getElementById('modalFileSize').textContent = formatFileSize(file.size || 0);
+      document.getElementById('modalFileSize').textContent = fileManager.formatFileSize(file.size || 0);
       document.getElementById('modalFileDownloads').textContent = file.downloads || 0;
       document.getElementById('modalFileMime').textContent = file.type || 'application/octet-stream';
       document.getElementById('modalFileMd5').textContent = file.id;
@@ -389,7 +326,7 @@
     }
 
     function downloadFile(fileId) {
-      const file = currentFiles.find(f => f.id === fileId);
+      const file = fileManager.getFile(fileId);
       if (file) {
         const link = document.createElement('a');
         link.href = file.data;
@@ -398,8 +335,8 @@
         link.click();
         document.body.removeChild(link);
         
-        file.downloads = (file.downloads || 0) + 1;
-        saveFiles();
+        fileManager.updateFileDownloads(fileId);
+        notificationManager.show('File downloaded successfully!', 'success');
       }
     }
 
@@ -475,7 +412,7 @@
     });
 
     logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('currentSession');
+      userManager.logout();
       window.location.href = '/';
     });
 
