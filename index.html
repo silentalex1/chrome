@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xtendify</title>
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-animation"></div>
+  <div class="login-container">
+    <div class="logo-section">
+      <div class="logo-icon">📁</div>
+      <h1>xtendify</h1>
+      <p>Secure file sharing made simple</p>
+    </div>
+    
+    <form class="login-form" id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Username" autocomplete="off" required>
+        <div class="input-icon">👤</div>
+      </div>
+      
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" autocomplete="off" required>
+        <div class="input-icon">🔒</div>
+      </div>
+      
+      <div class="form-buttons">
+        <button type="submit" id="loginBtn" class="btn-primary">
+          <span class="btn-text">Sign In</span>
+          <div class="btn-loader"></div>
+        </button>
+        <button type="button" id="createBtn" class="btn-secondary">
+          <span class="btn-text">Create Account</span>
+        </button>
+      </div>
+    </form>
+    
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <span class="feature-text">Lightning fast</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🛡️</span>
+        <span class="feature-text">Secure & private</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📱</span>
+        <span class="feature-text">Works everywhere</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const createBtn = document.getElementById('createBtn');
+    const notification = document.getElementById('notification');
+
+    function showNotification(message, type = 'error') {
+      notification.textContent = message;
+      notification.className = `notification ${type}`;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    function setLoading(button, loading) {
+      const btnText = button.querySelector('.btn-text');
+      const btnLoader = button.querySelector('.btn-loader');
+      
+      if (loading) {
+        button.disabled = true;
+        btnText.style.opacity = '0';
+        btnLoader.style.display = 'block';
+      } else {
+        button.disabled = false;
+        btnText.style.opacity = '1';
+        btnLoader.style.display = 'none';
+      }
+    }
+
+    async function sendAuth(path) {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      
+      if (!username || !password) {
+        showNotification('Please fill in all fields');
+        return;
+      }
+
+      setLoading(loginBtn, true);
+      
+      try {
+        const res = await fetch('/' + path, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ username, password })
+        });
+        
+        if (res.ok) {
+          showNotification('Success! Redirecting...', 'success');
+          setTimeout(() => window.location = '/filedrop', 500);
+        } else if (res.status === 409) {
+          showNotification('Username already exists');
+        } else if (res.status === 401) {
+          showNotification('Invalid username or password');
+        } else {
+          showNotification('Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        showNotification('Network error. Please check your connection.');
+      } finally {
+        setLoading(loginBtn, false);
+      }
+    }
+
+    loginForm.onsubmit = (e) => {
+      e.preventDefault();
+      sendAuth('login');
+    };
+
+    createBtn.onclick = () => sendAuth('register');
+
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        loginForm.dispatchEvent(new Event('submit'));
+      }
+    });
+  </script>
+</body>
+</html>
