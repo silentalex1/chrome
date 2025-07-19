@@ -6,6 +6,7 @@
   <title>xtendify</title>
   <link rel="stylesheet" href="filedrop.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="script.js"></script>
 </head>
 <body>
   <div class="background-animation"></div>
@@ -150,8 +151,10 @@
   </div>
 
   <script>
-    let currentFiles = [];
-    let currentUser = null;
+    const fileManager = new FileManager();
+    const userManager = new UserManager();
+    const notificationManager = new NotificationManager();
+    
     const dropZone = document.getElementById('dropZone');
     const uploadIcon = document.getElementById('uploadIcon');
     const dropText = document.getElementById('dropText');
@@ -161,7 +164,6 @@
     const progressText = document.getElementById('progressText');
     const filesList = document.getElementById('filesList');
     const emptyState = document.getElementById('emptyState');
-    const notification = document.getElementById('notification');
     const logoutBtn = document.getElementById('logoutBtn');
     const refreshBtn = document.getElementById('refreshBtn');
     const modalOverlay = document.getElementById('modalOverlay');
